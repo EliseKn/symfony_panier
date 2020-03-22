@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PanierRepository")
@@ -18,6 +19,9 @@ class Panier
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotNull
+     * @Assert\Type("integer")
+     * @Assert\GreaterThanOrEqual(0)
      */
     private $qte;
 
@@ -30,6 +34,18 @@ class Panier
      * @ORM\Column(type="boolean")
      */
     private $etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Produit", inversedBy="panier")
+     */
+    private $produit;
+
+    public function __construct($produit)
+    {
+        $this->setProduit($produit);
+        $this->setDateAjout(new \DateTime);
+        $this->setEtat(false);
+    }
 
     public function getId(): ?int
     {
@@ -68,6 +84,18 @@ class Panier
     public function setEtat(bool $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getProduit(): ?Produit
+    {
+        return $this->produit;
+    }
+
+    public function setProduit(?Produit $produit): self
+    {
+        $this->produit = $produit;
 
         return $this;
     }

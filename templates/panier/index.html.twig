@@ -18,10 +18,16 @@
             <tbody>
                 {% for produit in panier %}
                     <tr>
-                        <td>{{produit.nom}}</td>
+                        <td>{{produit.produit.nom}}</td>
                         <td>{{produit.qte}}</td>
-                        <td>{{produit.prix}} €</td>
-                        <td> suppr </td>
+                        <td>{{produit.produit.prix}} €</td>
+                        <td>
+                            <button type="button" class="btn btn-danger">
+                                <a href="{{ path('panier_delete', {'id':produit.id}) }}">
+                                    Supprimer
+                                </a>
+                            </button>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

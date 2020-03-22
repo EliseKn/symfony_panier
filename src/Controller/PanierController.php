@@ -16,8 +16,6 @@ class PanierController extends AbstractController
     public function index()
     {
         $pdo = $this->getDoctrine()->getManager();
-
-        $panier = new Panier();
         $panier = $pdo->getRepository(Panier::class)->findAll();
 
         return $this->render('panier/index.html.twig', [
@@ -26,7 +24,21 @@ class PanierController extends AbstractController
     }
 
     /**
-     * AJOUT PANIER
-     * @Route("/panier/add/{id}", name="panier_add")
+     * PAGE SUPPRESSION 
+     * @Route("/panier/delete/{id}", name="panier_delete")
      */
+
+    public function delete(Panier $panier=null){
+        if($panier != null){
+            $pdo = $this->getDoctrine()->getManager();
+            $pdo->remove($panier);
+            $pdo->flush();
+
+            $this->addFlash("success", "Produit supprimé");
+        }
+        else{
+            $this->addFlash("danger", "Erreur");
+        }
+        return $this->redirectToRoute('panier');
+    }
 }

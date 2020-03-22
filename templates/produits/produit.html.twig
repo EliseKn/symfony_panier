@@ -13,6 +13,7 @@
     <p>{{ produit.prix }} €</p>
 
     <h2> Ajouter au panier </h2>
+    {{form(form_panier_ajout)}}
 
     <button type="button" class="btn btn-danger">
         <a href="{{ path('produit_delete', {'id':produit.id}) }}">

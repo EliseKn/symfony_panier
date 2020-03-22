@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Panier;
 use App\Entity\Produit;
+use App\Form\PanierType;
 use App\Form\ProduitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -65,11 +67,25 @@ class ProduitsController extends AbstractController
     public function produit(Produit $produit=null, Request $request){
 
         if($produit != null){
-            
-            $pdo = $this->getDoctrine()->getManager();
+            $panier = new Panier($produit);
+            $form = $this->createForm(PanierType::class, $panier);
+            $form->handleRequest($request);
+            if ( $form->isSubmitted() && $form->isValid() ) {
+                if ($panier->getQte() <= $produit->getQte() ) {
+                    $pdo = $this->getDoctrine()->getManager();
+                    $pdo->persist($panier);
+                    $pdo->flush();
+
+                    $this->addFlash("success", "Produit ajouté au panier");
+                }
+                else {
+                    $this->addFlash("danger", "Pas assez de produits en stock");
+                }
+            }
 
             return $this->render('produits/produit.html.twig', [
                 'produit' => $produit,
+                'form_panier_ajout' => $form->createView()
             ]);
         }
 
