@@ -1,0 +1,39 @@
+Nom: "Name"
+Photo: "Photo"
+Qte: "Quantity"
+Prix: "Price"
+Ajouter: "Add"
+
+Produit:
+    produits: "Products"
+    titre: "Product List"
+    nom: "Name"
+    qte: "Quantity"
+    prix: "Price"
+    noproduit: "There is no product yet"
+    ajout: "Add new product"
+    aupanier: "Add to shopping bag"
+    suppr: "Delete the product"
+
+Panier:
+    panier: "ShoppingBag"
+    titre: "Your Shopping cart"
+    nom: "Name"
+    qte: "Quantity"
+    prix: "Price"
+    suppr: "Delete"
+    article: "products"
+    noproduit: "No products in the shopping bag yet"
+
+Flash:
+    produit:
+        erreur: "This couldn't be uploaded"
+        creer: "Product created"
+        aupanier: "Added to your shopping bag"
+        stock: "Insufficient stock"
+        inexistant: "Unable to find this product"
+        suppr: "The product has been deleted"
+
+    panier:
+        suppr: "Product deleted from shopping bag"
+        erreur: "Unabled to deleted this product"

@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Panier {% endblock %}
+{% block title %} {{ 'Panier.panier'|trans }} {% endblock %}
 
 {% block body %}
-<h1>Contenu du panier </h1>
+<h1>{{ 'Panier.titre'|trans }}</h1>
 
     {% if panier is not empty %}
         <table class="table">
             <thead>
                 <tr>
-                    <th>Nom</th>
-                    <th>Quantité</th>
-                    <th>Prix</th>
+                    <th>{{ 'Panier.nom'|trans }}</th>
+                    <th>{{ 'Panier.qte'|trans }}</th>
+                    <th>{{ 'Panier.prix'|trans }}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -32,7 +32,7 @@
                         <td>
                             <button type="button" class="btn btn-danger">
                                 <a href="{{ path('panier_delete', {'id':produit.id}) }}">
-                                    Supprimer
+                                    {{ 'Panier.suppr'|trans }}
                                 </a>
                             </button>
                         </td>
@@ -40,14 +40,14 @@
                 {% endfor %}
 
             </tbody>
-            <td class="text-muted" >{{ panier|length }} articles</td>
+            <td class="text-muted" >{{ panier|length }} {{ 'Panier.article'|trans }}</td>
             <td></td>
             <td class="font-weight-bold" >{{prix_total}} €</td>
         </table>
 
 
     {% else %}
-        <p>Il n'y a aucun produit au panier</p>
+        <p>{{ 'Panier.noproduit'|trans }}</p>
     {% endif %}
 
 

@@ -1,0 +1,39 @@
+Nom: "Nom"
+Photo: "Photo"
+Qte: "Quantité"
+Prix: "Prix"
+Ajouter: "Ajouter"
+
+Produit:
+    produits: "Produits"
+    titre: "Liste des Produits"
+    nom: "Nom"
+    qte: "Quantité"
+    prix: "Prix"
+    noproduit: "Il n'y a aucun produit"
+    ajout: "Ajouter un produit"
+    aupanier: "Ajouter au panier"
+    suppr: "Supprimer le produit"
+
+Panier:
+    panier: "Panier"
+    titre: "Contenu du panier"
+    nom: "Nom"
+    qte: "Quantité"
+    prix: "Prix"
+    suppr: "Supprimer"
+    article: "articles"
+    noproduit: "il n'y a aucun produit au panier"
+
+Flash:
+    produit:
+        erreur: "Impossible d'uploader l'image"
+        creer: "Produit ajouté"
+        aupanier: "Produit ajouté au panier"
+        stock: "Pas assez de produits en stock"
+        inexistant: "Produit introuvable"
+        suppr: "Produit supprimé"
+
+    panier:
+        suppr: "Produit supprimé du panier"
+        erreur: "Erreur : le produit n'a pas pu être supprimé"

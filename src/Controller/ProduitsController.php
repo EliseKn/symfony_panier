@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 
 class ProduitsController extends AbstractController
 {
@@ -17,7 +19,7 @@ class ProduitsController extends AbstractController
      * @Route("/produits", name="produits")
      */
 
-    public function index(Request $request)
+    public function index(Request $request, TranslatorInterface $translator)
     {
         $pdo= $this->getDoctrine()->getManager();
 
@@ -37,7 +39,7 @@ class ProduitsController extends AbstractController
                     );
                 }
                 catch (FileException $e) {
-                    $this->addFlash('danger', "Impossible d'uploader l'image");
+                    $this->addFlash('danger', $translator->trans('Flash.produit.erreur'));
                     return $this->redirectToRoute('produits');
                 }
 
@@ -47,7 +49,7 @@ class ProduitsController extends AbstractController
             $pdo->persist($produit);
             $pdo->flush();
             
-            $this->addFlash("success", "Produit ajouté");
+            $this->addFlash("success", $translator->trans('Flash.produit.creer'));
         }
 
         $produits = $pdo->getRepository(Produit::class)->findAll();
@@ -64,7 +66,7 @@ class ProduitsController extends AbstractController
      * @Route("/produits/{id}", name="produit_view")
      */
 
-    public function produit(Produit $produit=null, Request $request){
+    public function produit(Produit $produit=null, Request $request, TranslatorInterface $translator){
 
         if($produit != null){
             $panier = new Panier($produit);
@@ -76,10 +78,10 @@ class ProduitsController extends AbstractController
                     $pdo->persist($panier);
                     $pdo->flush();
 
-                    $this->addFlash("success", "Produit ajouté au panier");
+                    $this->addFlash("success", $translator->trans('Flash.produit.aupanier'));
                 }
                 else {
-                    $this->addFlash("danger", "Pas assez de produits en stock");
+                    $this->addFlash("danger", $translator->trans('Flash.produit.stock'));
                 }
             }
 
@@ -90,7 +92,7 @@ class ProduitsController extends AbstractController
         }
 
         else{
-            $this->addFlash("danger", "Produit introuvable");
+            $this->addFlash("danger", $translator->trans('Flash.produit.inexistant'));
             return $this->redirectToRoute('produits');
         }
     }
@@ -101,7 +103,7 @@ class ProduitsController extends AbstractController
      * @Route("/produits/delete/{id}", name="produit_delete")
      */
 
-    public function delete(Produit $produit=null){
+    public function delete(Produit $produit=null, TranslatorInterface $translator){
         if($produit != null){
 
             if ($produit->getPhoto() !=null) {
@@ -112,10 +114,10 @@ class ProduitsController extends AbstractController
             $pdo->remove($produit);
             $pdo->flush();
 
-            $this->addFlash("success", "Produit supprimé");
+            $this->addFlash("success", $translator->trans('Flash.produit.suppr'));
         }
         else{
-            $this->addFlash("danger", "Produit introuvable");
+            $this->addFlash("danger", $translator->trans('Flash.produit.inexistant'));
         }
         return $this->redirectToRoute('produits');
     }

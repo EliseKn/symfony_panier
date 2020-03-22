@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Panier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PanierController extends AbstractController
 {
@@ -28,16 +29,16 @@ class PanierController extends AbstractController
      * @Route("/panier/delete/{id}", name="panier_delete")
      */
 
-    public function delete(Panier $panier=null){
+    public function delete(Panier $panier=null, TranslatorInterface $translator){
         if($panier != null){
             $pdo = $this->getDoctrine()->getManager();
             $pdo->remove($panier);
             $pdo->flush();
 
-            $this->addFlash("success", "Produit supprimé");
+            $this->addFlash("success", $translator->trans('Flash.panier.erreur'));
         }
         else{
-            $this->addFlash("danger", "Erreur");
+            $this->addFlash("danger", $translator->trans('Flash.panier.suppr'));
         }
         return $this->redirectToRoute('panier');
     }

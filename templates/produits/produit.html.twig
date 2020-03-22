@@ -9,15 +9,15 @@
         <img src="{{ asset('uploads/' ~ produit.photo) }}">
     {% endif %}
 
-    <p>Quantité : {{ produit.qte }}</p>
+    <p>{{ 'Produit.qte'|trans }} : {{ produit.qte }}</p>
     <p>{{ produit.prix }} €</p>
 
-    <h2> Ajouter au panier </h2>
+    <h2>{{ 'Produit.aupanier'|trans }}</h2>
     {{form(form_panier_ajout)}}
 
     <button type="button" class="btn btn-danger">
         <a href="{{ path('produit_delete', {'id':produit.id}) }}">
-        Supprimer le produit
+        {{ 'Produit.suppr'|trans }}
         </a>
     </button>
 

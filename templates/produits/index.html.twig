@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Produits {% endblock %}
+{% block title %} {{ 'Produit.produits'|trans }} {% endblock %}
 
 {% block body %}
-<h1>Liste des produits </h1>
+<h1>{{ 'Produit.titre'|trans }}</h1>
 
     {% if produits is not empty %}
         <table class="table">
             <thead>
                 <tr>
                     <th>Photo</th>
-                    <th>Nom</th>
-                    <th>Quantité</th>
-                    <th>Prix</th>
+                    <th>{{ 'Produit.nom'|trans }}</th>
+                    <th>{{ 'Produit.qte'|trans }}</th>
+                    <th>{{ 'Produit.prix'|trans }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,10 +36,10 @@
         </table>
 
     {% else %}
-        <p>Il n'y a aucun produit </p>
+        <p>{{ 'Produit.noproduit'|trans }}</p>
     {% endif %}
 
-    <h2>Ajouter un produit </h2>
+    <h2>{{ 'Produit.ajout'|trans }}</h2>
     {{form(form_produit_ajout)}}
 
 {% endblock %}
