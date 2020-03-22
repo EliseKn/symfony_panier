@@ -71,7 +71,7 @@ class ProduitsController extends AbstractController
             $form = $this->createForm(PanierType::class, $panier);
             $form->handleRequest($request);
             if ( $form->isSubmitted() && $form->isValid() ) {
-                if ($panier->getQte() <= $produit->getQte() ) {
+                if ($panier->getQte() <= $produit->getQte()) {
                     $pdo = $this->getDoctrine()->getManager();
                     $pdo->persist($panier);
                     $pdo->flush();
@@ -103,6 +103,11 @@ class ProduitsController extends AbstractController
 
     public function delete(Produit $produit=null){
         if($produit != null){
+
+            if ($produit->getPhoto() !=null) {
+                unlink($this->getParameter('upload_dir'). $produit->getPhoto());
+            }
+
             $pdo = $this->getDoctrine()->getManager();
             $pdo->remove($produit);
             $pdo->flush();
